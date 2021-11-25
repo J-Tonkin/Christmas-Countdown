@@ -35,7 +35,7 @@ def GetRow(seg,disp):
     if (seg == 6):
         leds = [6,7]
     return [z+offset for z in leds]
-    
+
 def GetPinwheel(seg,disp):
     offset = disp*14
     if (seg == 0):
@@ -91,6 +91,7 @@ def DIGIT(state,num,disp,r,g,b):
     return state
 
 def UpAndDown(r,g,b):
+    print("Running Vertical Swipe")
     leds = []
     prevRow = []
     for disp in range(math.floor(LED_COUNT/14)):
@@ -124,8 +125,9 @@ def UpAndDown(r,g,b):
             else :
                 strip.setPixelColor(led,Color(0,0,0))
         strip.show()
-        
+
 def Rotate(r,g,b):
+    print("Running Rotate")
     leds = []
     prevRow = []
     for disp in range(math.floor(LED_COUNT/14)):
@@ -199,7 +201,7 @@ if __name__ == '__main__':
                 DIGIT(state,n,display,0,255,0)
                 display = display + 1
             strip.show()
-            time.sleep(60)
+            time.sleep(5)
             Rotate(255,0,0)
             time.sleep(5)
 
@@ -213,7 +215,7 @@ if __name__ == '__main__':
                 DIGIT(state,n,display,255,0,0)
                 display = display + 1
             strip.show()
-            time.sleep(60)
+            time.sleep(5)
             UpAndDown(0,255,0)
             time.sleep(5)
 
