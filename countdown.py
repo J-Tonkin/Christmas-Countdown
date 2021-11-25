@@ -132,15 +132,24 @@ def Rotate(r,g,b):
     prevRow = []
     for disp in range(math.floor(LED_COUNT/14)):
         prevRow = []
-        for repeat in range (2):
-            for seg in range (7):
-                prevRow = leds
-                leds = GetPinwheel(seg,disp)
-                for led in leds:
+        for seg in range (7):
+            prevRow = leds
+            leds = GetPinwheel(seg,disp)
+            for led in leds:
+                strip.setPixelColor(led,Color(r,g,b))
+            if(seg != 0):
+                for led in prevRow:
+                    strip.setPixelColor(led,Color(0,0,0))
+        for seg in range (7):
+            prevRow = leds
+            leds = GetPinwheel(seg,disp)
+            for led in leds:
+                strip.setPixelColor(led,Color(r,g,b))
+            for led in prevRow:
+                if (state[led]):
                     strip.setPixelColor(led,Color(r,g,b))
-                if(seg != 0):
-                    for led in prevRow:
-                        strip.setPixelColor(led,Color(0,0,0))
+                else :
+                    strip.setPixelColor(led,Color(0,0,0))
                 strip.show()
                 time.sleep(.1)
         prevRow = leds
