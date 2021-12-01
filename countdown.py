@@ -181,41 +181,48 @@ if __name__ == '__main__':
     state = []
     for x in range(LED_COUNT):
         state.append(0)
+    turnOn = datetime.time(19,0,0)
+    turnOff = datetime.time(2,0,0)
 
     try:
 
         while True:
-            #for j in range(0,10,1):
-            #    DIGIT(j)
-            #    strip.show()
-            #    time.sleep(1)
             now = dt.now()
-            timeLeft = dt(year = 2021, month = 12, day = 25) - dt(year=now.year, month=now.month, day=now.day)
-            print("Days left until Christmas:")
-            print(timeLeft.days)
-            digitList = [int(i) for i in str(timeLeft.days)]
-            display = 0
-            for n in digitList:
-                DIGIT(state,n,display,0,255,0)
-                display = display + 1
-            strip.show()
-            time.sleep(5)
-            Rotate(255,0,0)
-            time.sleep(5)
+            if (turnOn <= now <= turnOff):
+                stripOff = false
+                timeLeft = dt(year = 2021, month = 12, day = 25) - dt(year=now.year, month=now.month, day=now.day)
+                print("Days left until Christmas:")
+                print(timeLeft.days)
+                digitList = [int(i) for i in str(timeLeft.days)]
+                display = 0
+                for n in digitList:
+                    DIGIT(state,n,display,0,255,0)
+                    display = display + 1
+                strip.show()
+                time.sleep(5)
+                Rotate(255,0,0)
+                time.sleep(5)
 
-            now = dt.now()
-            timeLeft = dt(year = 2021, month = 12, day = 25) - dt(year=now.year, month=now.month, day=now.day)
-            print("Days left until Christmas:")
-            print(timeLeft.days)
-            digitList = [int(i) for i in str(timeLeft.days)]
-            display = 0
-            for n in digitList:
-                DIGIT(state,n,display,255,0,0)
-                display = display + 1
-            strip.show()
-            time.sleep(5)
-            UpAndDown(0,255,0)
-            time.sleep(5)
+                now = dt.now()
+                timeLeft = dt(year = 2021, month = 12, day = 25) - dt(year=now.year, month=now.month, day=now.day)
+                print("Days left until Christmas:")
+                print(timeLeft.days)
+                digitList = [int(i) for i in str(timeLeft.days)]
+                display = 0
+                for n in digitList:
+                    DIGIT(state,n,display,255,0,0)
+                    display = display + 1
+                strip.show()
+                time.sleep(5)
+                UpAndDown(0,255,0)
+                time.sleep(5)
+            else:
+                if(!stripOff):
+                    for led in LED_COUNT:
+                        strip.setPixelColor(led,Color(0,0,0))
+                    strip.show()
+                    stripOff = true
+                time.sleep(60)
 
 
     except KeyboardInterrupt:
