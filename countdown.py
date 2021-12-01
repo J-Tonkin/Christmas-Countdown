@@ -188,7 +188,7 @@ if __name__ == '__main__':
 
         while True:
             now = dt.now()
-            if (turnOn <= now.time() <= turnOff):
+            if not (turnOff <= now.time() <= turnOn):
                 stripOff = False
                 timeLeft = dt(year = 2021, month = 12, day = 25) - dt(year=now.year, month=now.month, day=now.day)
                 print("Days left until Christmas:")
@@ -217,7 +217,7 @@ if __name__ == '__main__':
                 UpAndDown(0,255,0)
                 time.sleep(5)
             else:
-                if(!stripOff):
+                if not stripOff:
                     for led in LED_COUNT:
                         strip.setPixelColor(led,Color(0,0,0))
                     strip.show()
